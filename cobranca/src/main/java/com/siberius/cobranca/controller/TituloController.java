@@ -17,7 +17,7 @@ import com.siberius.cobranca.repository.Titulos;
 @Controller
 @RequestMapping("/titulos")
 public class TituloController {
-	
+
 	@Autowired
 	private Titulos titulos;
 
@@ -26,19 +26,24 @@ public class TituloController {
 		ModelAndView mv = new ModelAndView("CadastroTitulo");
 		return mv;
 	}
-	
+
+	@RequestMapping
+	public String pesquisar() {
+		return "PesquisaTitulos";
+	}
+
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView salvar(Titulo titulo) {
-		
+
 		titulos.save(titulo);
 		ModelAndView mv = new ModelAndView("CadastroTitulo");
 		mv.addObject("mensagem", "Título salvo com sucesso!");
 		return mv;
 	}
-	
+
 	@ModelAttribute("statusTitulo")
-	public List<StatusTitulo> statusTitulos(){
-		return Arrays.asList(StatusTitulo.values()); 
+	public List<StatusTitulo> statusTitulos() {
+		return Arrays.asList(StatusTitulo.values());
 	}
-	
+
 }
