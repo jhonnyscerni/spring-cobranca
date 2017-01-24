@@ -3,6 +3,7 @@ package com.siberius.cobranca.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
+@Entity
 public class Titulo {
 
 	@Id
@@ -19,13 +24,15 @@ public class Titulo {
 	
 	private String descricao;
 	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
 	
+	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal valor;
 	
 	@Enumerated(EnumType.STRING)
-	private StatusTitulo statusTitulo;
+	private StatusTitulo status;
 
 	public Long getCodigo() {
 		return codigo;
@@ -59,12 +66,12 @@ public class Titulo {
 		this.valor = valor;
 	}
 
-	public StatusTitulo getStatusTitulo() {
-		return statusTitulo;
+	public StatusTitulo getStatus() {
+		return status;
 	}
 
-	public void setStatusTitulo(StatusTitulo statusTitulo) {
-		this.statusTitulo = statusTitulo;
+	public void setStatus(StatusTitulo status) {
+		this.status = status;
 	}
 
 	@Override
