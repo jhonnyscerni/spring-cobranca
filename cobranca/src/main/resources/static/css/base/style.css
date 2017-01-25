@@ -1,12 +1,25 @@
 @CHARSET "UTF-8";
-.navbar-brand{
+
+.navbar-brand {
 	padding-top: 12px;
 }
 
-.form-horizontal{
-	padding: 0 10px 0 10px;
+.panel-default {
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
-.alert{
-	padding: 0 10px 0 10px;
+.alert {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.s-link-panel {
+	float: right;
+	padding: 0px;
+}
+
+.s-titulo-panel {
+	float: left;
+	padding-top: 2px;
 }

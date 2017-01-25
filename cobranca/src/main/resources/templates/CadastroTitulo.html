@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8" />
-<title>Cadastro de título</title>
-<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="/css/style.css" />
-</head>
-<body>
-	<nav class="navbar navbar-inverse navbar-static-top">
-		<div class="container-fluid">
-			<div class="navbar-header"></div>
-		</div>
-	</nav>
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="Layout">
 
+<head>
+<title>Cadastro de título</title>
+</head>
+
+<section layout:fragment="conteudo">
 	<form class="form-horizontal" method="POST" action="/titulos">
 		<div class="alert alert-success"
 			th:if="${!#strings.isEmpty(mensagem)}">
 			<span th:text="${mensagem}">Título salvo com sucesso!!!</span>
 		</div>
+		
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h1 class="panel-title">Novo título</h1>
+				<div class="clearfix">
+					<h1 class="panel-title s-titulo-panel">Novo título</h1>
+					<a class="btn btn-link s-link-panel" href="/titulos">Voltar
+						para pesquisa </a>
+				</div>
 			</div>
-
+			
 			<div class="panel-body">
 				<div class="form-group">
 					<label for="descricao" class="col-sm-2 control-label">Descrição</label>
@@ -50,7 +50,8 @@
 					<label for="status" class="col-sm-2 control-label">Status</label>
 					<div class="col-sm-2">
 						<select class="form-control" name="status">
-							<option th:each="status: ${statusTitulo}" th:value="${status}" th:text="${status.descricao}"></option>
+							<option th:each="status: ${statusTitulo}" th:value="${status}"
+								th:text="${status.descricao}"></option>
 						</select>
 					</div>
 				</div>
@@ -62,8 +63,5 @@
 			</div>
 		</div>
 	</form>
-	
-	<script src="/js/jquery-3.1.1.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
-</body>
+</section>
 </html>
