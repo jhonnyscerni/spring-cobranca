@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,12 +22,14 @@ import com.siberius.cobranca.repository.Titulos;
 @RequestMapping("/titulos")
 public class TituloController {
 
+	private static final String CADASTRO_VIEW = "CadastroTitulo";
+	
 	@Autowired
 	private Titulos titulos;
 
 	@RequestMapping("/novo")
 	public ModelAndView novo() {
-		ModelAndView mv = new ModelAndView("CadastroTitulo");
+		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
 		mv.addObject(new Titulo());
 		return mv;
 	}
@@ -38,12 +41,28 @@ public class TituloController {
 		mv.addObject("titulos", todosTitulos);
 		return mv;
 	}
+	
+	@RequestMapping("{codigo}")
+	public ModelAndView edicao(@PathVariable("codigo") Titulo titulo){
+		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
+		mv.addObject(titulo);
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="{codigo}", method = RequestMethod.DELETE)
+	public String excluir(@PathVariable Long codigo, RedirectAttributes attributes) {
+		titulos.delete(codigo);
+		
+		attributes.addFlashAttribute("mensagem", "Título excluído com sucesso!");
+		return "redirect:/titulos";
+	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String salvar(@Validated Titulo titulo, Errors erros, RedirectAttributes attributes) {
 
 		if (erros.hasErrors()) {
-			return "CadastroTitulo";
+			return CADASTRO_VIEW;
 		}
 		
 		titulos.save(titulo);
